@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class Tile_puzzle_state implements State{
@@ -66,7 +67,7 @@ public class Tile_puzzle_state implements State{
         return true;
     }
 
-    //todo keep cast to shorter data type
+    
     private int get_num(int index_num){
         long state_copy = state << (index_num * 4);
         return (int) (state_copy & 15);
@@ -82,8 +83,11 @@ public class Tile_puzzle_state implements State{
                 print_array[i][j] = get_num(array_index);
                 array_index ++;
             }
-            System.out.println(print_array[i].toString());
+
         }
+        //I stole this code from stack overflow
+        System.out.println(Arrays.deepToString(print_array).replace("], ", "]\n"));
+        System.out.println();
     }
 
     @Override
@@ -111,11 +115,13 @@ public class Tile_puzzle_state implements State{
         state = set_cleared_bits(state, set_index2, set_num2);
     }
 
-    private long clear_bits(long input, int index_num){
+
+    //todo change this to private when testing is done
+    public long clear_bits(long input, int index_num){
         return (~ ( ((long) 15) << (4 * index_num))) & input;
     }
 
-    private long set_cleared_bits(long input, int index, int number_to_set){
+    public long set_cleared_bits(long input, int index, int number_to_set){
         return (input | (( (long) number_to_set) << (4 * index)));
     }
 
