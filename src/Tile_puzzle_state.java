@@ -4,7 +4,7 @@ import java.util.NoSuchElementException;
 public class Tile_puzzle_state implements State{
 
     /*
-    Bitwise state storage conventions
+    Bitwise state storage conventions:
     The rightmost 4 bits in the long will code for the top left number in our  4x4 grid
     then numbers are stored in the long in the order of a solver puzzle
      */
@@ -21,7 +21,6 @@ public class Tile_puzzle_state implements State{
     }
 
     @Override
-    //todo swap this for an arraylist/regular list?
     public ArrayList<Tile_puzzle_action> listActions() {
         if(!action_list.isEmpty()){
             return action_list;
@@ -67,17 +66,24 @@ public class Tile_puzzle_state implements State{
         return true;
     }
 
-    //todo cast this to a shorter data type
-    private long get_num(int index_num){
+    //todo keep cast to shorter data type
+    private int get_num(int index_num){
         long state_copy = state << (index_num * 4);
-        return (state_copy & 15);
+        return (int) (state_copy & 15);
     }
 
 
     @Override
-    //todo turn this into an array or not?
     public void display() {
-
+        int print_array[][] = new int[4][4];
+        int array_index = 0;
+        for (int i = 0; i <4; i++) {
+            for (int j = 0; j < 4; j++) {
+                print_array[i][j] = get_num(array_index);
+                array_index ++;
+            }
+            System.out.println(print_array[i].toString());
+        }
     }
 
     @Override
@@ -88,7 +94,29 @@ public class Tile_puzzle_state implements State{
     @Override
     public void performAction(Action action) {
         action_list.clear();
-        //todo implement this
+
+        Tile_puzzle_action casted_action = (Tile_puzzle_action) action;
+
+        //numbers to set and what index to set them
+        int set_index1 = casted_action.swap_index1;
+        int set_index2 = casted_action.swap_index2;
+
+        int set_num1 = get_num(set_index2);
+        int set_num2 = get_num(set_index1);
+
+        state = clear_bits(state, set_index1);
+        state = clear_bits(state, set_index2);
+
+        state = set_cleared_bits(state, set_index1, set_num1);
+        state = set_cleared_bits(state, set_index2, set_num2);
+    }
+
+    private long clear_bits(long input, int index_num){
+        return (~ ( ((long) 15) << (4 * index_num))) & input;
+    }
+
+    private long set_cleared_bits(long input, int index, int number_to_set){
+        return (input | (( (long) number_to_set) << (4 * index)));
     }
 
 

@@ -17,4 +17,5 @@ public class Tile_puzzle_action implements Action{
     public int getCost() {
         return 1;
     }
+
 }
