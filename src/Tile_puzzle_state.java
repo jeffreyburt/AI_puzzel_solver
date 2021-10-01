@@ -10,19 +10,21 @@ public class Tile_puzzle_state implements State{
     then numbers are stored in the long in the order of a solver puzzle
      */
     public long state;
-    private ArrayList<Tile_puzzle_action> action_list = new ArrayList<>();
+    private ArrayList<Action> action_list = new ArrayList<>();
+
+
 
     public Tile_puzzle_state(long state){
         this.state = state;
     }
 
-    public Tile_puzzle_state(long state, ArrayList<Tile_puzzle_action> action_list){
+    public Tile_puzzle_state(long state, ArrayList<Action> action_list){
         this.state = state;
         this.action_list = action_list;
     }
 
     @Override
-    public ArrayList<Tile_puzzle_action> listActions() {
+    public ArrayList<Action> listActions() {
         if(!action_list.isEmpty()){
             return action_list;
         }
@@ -69,7 +71,7 @@ public class Tile_puzzle_state implements State{
 
     
     private int get_num(int index_num){
-        long state_copy = state << (index_num * 4);
+        long state_copy = state >> (index_num * 4);
         return (int) (state_copy & 15);
     }
 
@@ -87,6 +89,7 @@ public class Tile_puzzle_state implements State{
         }
         //I stole this code from stack overflow
         System.out.println(Arrays.deepToString(print_array).replace("], ", "]\n"));
+        System.out.println(Long.toHexString(state));
         System.out.println();
     }
 
@@ -117,12 +120,17 @@ public class Tile_puzzle_state implements State{
 
 
     //todo change this to private when testing is done
-    public long clear_bits(long input, int index_num){
+    private long clear_bits(long input, int index_num){
         return (~ ( ((long) 15) << (4 * index_num))) & input;
     }
 
-    public long set_cleared_bits(long input, int index, int number_to_set){
-        return (input | (( (long) number_to_set) << (4 * index)));
+    private long set_cleared_bits(long input, int index_num, int number_to_set){
+        return (input | (( (long) number_to_set) << (4 * index_num)));
+    }
+
+    public void change_bit(int index_num, int num_to_set){
+        state = clear_bits(state, index_num);
+        state = set_cleared_bits(state, index_num, num_to_set);
     }
 
 

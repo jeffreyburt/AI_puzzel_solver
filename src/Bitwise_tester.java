@@ -3,14 +3,15 @@ public class Bitwise_tester {
 
     public static void main(String args[]){
         Tile_puzzle_state test_state = new Tile_puzzle_state(0);
+        for (int i = 0; i < 16; i++) {
+            test_state.change_bit(i,i);
+        }
         test_state.display();
-        test_state.state = test_state.set_cleared_bits(test_state.state, 0, 1);
+        for (int i = 0; i < 16; i++) {
+            test_state.change_bit(i,15 - i);
+        }
         test_state.display();
-        test_state.state = test_state.set_cleared_bits(test_state.state, 1, 5);
-        test_state.display();
-        test_state.state = test_state.set_cleared_bits(test_state.state, 15, 15);
-        test_state.display();
-        test_state.state = test_state.set_cleared_bits(test_state.state, 4, 4);
-        System.out.println(test_state.state);
+
+
     }
 }
