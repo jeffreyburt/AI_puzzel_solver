@@ -27,6 +27,8 @@ interface State
     // returns true if the otherState is the same as this one
     //   it is safe to cast otherState to your state class
     public boolean equals(Object otherState);
+
+    public int heuristic();
 }
 
 interface Action

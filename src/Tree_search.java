@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 abstract class TreeSearch implements Search {
 
@@ -32,7 +33,13 @@ abstract class TreeSearch implements Search {
             while (!frontier.isEmpty()) {
                 SearchNode node = frontier.removeNext();
                 if (node.state.isGoalState()) {
-
+                    SearchNode solution_node = node;
+                    LinkedList<SearchNode> path = new LinkedList<>();
+                    while (node.parent_node != null){
+                        path.addFirst(node);
+                        node = node.parent_node;
+                    }
+                    return new Solution(startState, solution_node.state, path);
                 }else{
                     ArrayList<Action> children = node.state.listActions();
                     for (Action child_action:

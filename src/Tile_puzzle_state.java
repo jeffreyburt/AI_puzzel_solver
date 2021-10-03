@@ -118,6 +118,12 @@ public class Tile_puzzle_state implements State{
         state = set_cleared_bits(state, set_index2, set_num2);
     }
 
+    @Override
+    public int heuristic() {
+        return 0;
+        //todo implement this
+    }
+
 
     //todo change this to private when testing is done
     private long clear_bits(long input, int index_num){

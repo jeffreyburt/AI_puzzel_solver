@@ -20,4 +20,14 @@ public class SearchNode{
         state = start_state;
     }
 
+    public int evaluate(){
+        return 0;
+        //todo implement this
+    }
+
+    public int compareTo(Object other_node){
+       return 0;
+       //todo implement this
+    }
+
 }

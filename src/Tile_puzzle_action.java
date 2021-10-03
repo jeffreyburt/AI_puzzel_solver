@@ -19,9 +19,4 @@ public class Tile_puzzle_action implements Action{
     }
 
 
-
-
-
-
-
 }
