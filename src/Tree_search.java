@@ -10,7 +10,7 @@ abstract class TreeSearch implements Search {
     }
 
     public boolean pruneThisNode(SearchNode node){
-        return true;
+        return check_grandparent(node);
     }
 
     //return true when a node is the same as its grandparent node (aka, returns true when the node should be pruned)

@@ -120,8 +120,20 @@ public class Tile_puzzle_state implements State{
 
     @Override
     public int heuristic() {
-        return 0;
-        //todo implement this
+        int total = 0;
+        for (int i = 0; i < 16; i++) {
+            int num_at_index = get_num(i);
+            total += calc_x_distance(i, num_at_index) + calc_y_distance(i, num_at_index);
+        }
+        return total;
+    }
+
+    private int calc_y_distance(int index_1, int index_2){
+        return Math.abs((index_1/4)-(index_2/4));
+    }
+
+    private int calc_x_distance(int index_1, int index_2){
+        return Math.abs((index_1 % 4)-(index_2 % 4));
     }
 
 
