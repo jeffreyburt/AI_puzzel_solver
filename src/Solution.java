@@ -19,8 +19,10 @@ public class Solution {
     public void display_path(){
         for (SearchNode node:
              path) {
-            State state = node.state;
-            state.display();
+            node.state.display();
+            if(node.action != null){
+                node.action.display();
+            }
         }
     }
 

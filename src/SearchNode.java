@@ -4,6 +4,7 @@ public class SearchNode{
     public SearchNode parent_node;
     public int depth;
     public int cost;
+    public Action action;
     public State state;
     public ArrayList<SearchNode> children;
 
@@ -14,6 +15,7 @@ public class SearchNode{
         State state_copy = parent_node.state.duplicate();
         state_copy.performAction(action);
         state = state_copy;
+        this.action = action;
     }
 
     public SearchNode(State start_state){

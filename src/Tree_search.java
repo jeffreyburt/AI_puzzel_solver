@@ -42,8 +42,7 @@ abstract class TreeSearch implements Search {
                     return new Solution(startState, solution_node.state, path);
                 }else{
                     ArrayList<Action> children = node.state.listActions();
-                    for (Action child_action:
-                         children) {
+                    for (Action child_action: children) {
                         //todo do I really need to make a new node before I check for duplicates?
                         SearchNode child_node = new SearchNode(node,child_action);
                         if(!check_grandparent(child_node)){

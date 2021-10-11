@@ -10,7 +10,6 @@ public class Tile_puzzle_state implements State{
     then numbers are stored in the long in the order of a solver puzzle
      */
     public long state;
-    private ArrayList<Action> action_list = new ArrayList<>();
 
 
 
@@ -18,13 +17,13 @@ public class Tile_puzzle_state implements State{
         this.state = state;
     }
 
-    public Tile_puzzle_state(long state, ArrayList<Action> action_list){
-        this.state = state;
-        this.action_list = action_list;
-    }
+
+
 
     @Override
     public ArrayList<Action> listActions() {
+        ArrayList<Action> action_list = new ArrayList<>();
+
         if(!action_list.isEmpty()){
             return action_list;
         }
@@ -95,12 +94,11 @@ public class Tile_puzzle_state implements State{
 
     @Override
     public State duplicate() {
-        return new Tile_puzzle_state(state, action_list);
+        return new Tile_puzzle_state(state);
     }
 
     @Override
     public void performAction(Action action) {
-        action_list.clear();
 
         Tile_puzzle_action casted_action = (Tile_puzzle_action) action;
 
@@ -127,6 +125,21 @@ public class Tile_puzzle_state implements State{
         }
         return total;
     }
+
+    @Override
+    public void gen_state(int depth) {
+        long prev_state = state;
+        for (int i = 0; i < depth; i++) {
+            ArrayList<Action> action_list = listActions();
+            int random_index = (int) (Math.random() * action_list.size());
+            performAction(action_list.get(random_index));
+            if(state == prev_state){
+                System.out.println("repeat");
+                depth ++;
+            }
+        }
+    }
+
 
     private int calc_y_distance(int index_1, int index_2){
         return Math.abs((index_1/4)-(index_2/4));

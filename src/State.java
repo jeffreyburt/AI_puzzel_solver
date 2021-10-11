@@ -29,6 +29,8 @@ interface State
     public boolean equals(Object otherState);
 
     public int heuristic();
+
+    public void gen_state(int depth);
 }
 
 interface Action
