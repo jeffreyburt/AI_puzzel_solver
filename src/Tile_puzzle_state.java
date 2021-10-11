@@ -86,9 +86,10 @@ public class Tile_puzzle_state implements State{
             }
 
         }
+
         //I stole this code from stack overflow
         System.out.println(Arrays.deepToString(print_array).replace("], ", "]\n"));
-        System.out.println(Long.toHexString(state));
+        //System.out.println(Long.toHexString(state));
         System.out.println();
     }
 
@@ -128,14 +129,19 @@ public class Tile_puzzle_state implements State{
 
     @Override
     public void gen_state(int depth) {
-        long prev_state = state;
+        long grandparent_state;
+        long prev_state = 0;
         for (int i = 0; i < depth; i++) {
+            
+            grandparent_state = prev_state;
+            prev_state = state;
+
             ArrayList<Action> action_list = listActions();
             int random_index = (int) (Math.random() * action_list.size());
             performAction(action_list.get(random_index));
-            if(state == prev_state){
-                System.out.println("repeat");
-                depth ++;
+            if(state == grandparent_state){
+                //System.out.println("repeat");
+                depth += 2;
             }
         }
     }

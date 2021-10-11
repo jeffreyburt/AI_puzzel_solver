@@ -13,14 +13,13 @@ abstract class TreeSearch implements Search {
         return check_grandparent(node);
     }
 
+    //todo this isn't working??
     //return true when a node is the same as its grandparent node (aka, returns true when the node should be pruned)
     private boolean check_grandparent(SearchNode node){
         if(node.parent_node != null){
             SearchNode grandparent = node.parent_node.parent_node;
             if(grandparent != null){
-                if(grandparent.state.equals(node.state)){
-                    return true;
-                }
+                return grandparent.state.equals(node.state);
             }
         }
         return false;
@@ -45,14 +44,14 @@ abstract class TreeSearch implements Search {
                     for (Action child_action: children) {
                         //todo do I really need to make a new node before I check for duplicates?
                         SearchNode child_node = new SearchNode(node,child_action);
-                        if(!check_grandparent(child_node)){
+                        if(!pruneThisNode(child_node)){
                             frontier.insert(child_node);
                         }
                     }
                 }
             }
-            System.out.println("ERROR: NO SOLUTION FOUND");
-            System.out.println("A STRANGE GAME. THE ONLY WINNING MOVE IS NOT TO PLAY");
+//            System.out.println("ERROR: NO SOLUTION FOUND");
+//            System.out.println("A STRANGE GAME. THE ONLY WINNING MOVE IS NOT TO PLAY");
             return null;
 
         }catch (OutOfMemoryError error){

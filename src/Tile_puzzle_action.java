@@ -10,7 +10,7 @@ public class Tile_puzzle_action implements Action{
 
     @Override
     public void display() {
-        System.out.println("Moved tile " + (swap_index1 + 1) + " to place " + (swap_index2 + 1) );
+        System.out.println("Moved tile in place " + (swap_index1) + " to place " + (swap_index2) );
     }
 
     @Override
