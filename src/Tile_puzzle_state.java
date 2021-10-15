@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class Tile_puzzle_state implements State{
 
@@ -170,5 +171,12 @@ public class Tile_puzzle_state implements State{
         state = set_cleared_bits(state, index_num, num_to_set);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tile_puzzle_state that = (Tile_puzzle_state) o;
+        return state == that.state;
+    }
 
 }

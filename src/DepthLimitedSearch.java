@@ -12,7 +12,7 @@ public class DepthLimitedSearch extends TreeSearch{
     }
 
     //todo find a better way to do this
-    //todo this check isn't working
+    //todo this isn't working
     private boolean check_grandparent(SearchNode node){
         if(node.parent_node != null){
             SearchNode grandparent = node.parent_node.parent_node;

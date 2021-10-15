@@ -3,9 +3,9 @@ public class Main {
 
     public static void main(String args[]){
 
-        int soution_depth = 1;
+        int soution_depth = 6;
 
-        TreeSearch search_algorithm = new DepthLimitedSearch(10);
+        TreeSearch search_algorithm = new DepthLimitedSearch(soution_depth + 1);
 
         Solver solver = new Solver();
         State state = new Tile_puzzle_state(gen_start_state(soution_depth));
