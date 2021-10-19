@@ -17,7 +17,7 @@ public class Solution {
     }
 
     public void display_path(){
-        System.out.println("Path found in: " + path.size() + " steps");
+        System.out.println("Path found in: " + (path.size() - 1) + " steps");
 
         for (SearchNode node:
              path) {
@@ -29,7 +29,7 @@ public class Solution {
     }
 
     public int get_path_length(){
-        return path.size() ;
+        return path.size() - 1;
     }
 
 

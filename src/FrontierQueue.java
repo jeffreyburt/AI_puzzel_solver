@@ -22,6 +22,6 @@ public class FrontierQueue implements Frontier {
 
     @Override
     public SearchNode removeNext() {
-        return frontier_queue.pop();
+        return frontier_queue.removeFirst();
     }
 }

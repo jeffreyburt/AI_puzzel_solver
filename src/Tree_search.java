@@ -13,9 +13,8 @@ abstract class TreeSearch implements Search {
         return check_grandparent(node);
     }
 
-    //todo this isn't working??
     //return true when a node is the same as its grandparent node (aka, returns true when the node should be pruned)
-    private boolean check_grandparent(SearchNode node){
+    public boolean check_grandparent(SearchNode node){
         if(node.parent_node != null){
             SearchNode grandparent = node.parent_node.parent_node;
             if(grandparent != null){
@@ -27,6 +26,7 @@ abstract class TreeSearch implements Search {
 
 
     public Solution search(State startState){
+        frontier.clear();
         try {
             frontier.insert(new SearchNode(startState));
             while (!frontier.isEmpty()) {
@@ -34,16 +34,16 @@ abstract class TreeSearch implements Search {
                 if (node.state.isGoalState()) {
                     SearchNode solution_node = node;
                     LinkedList<SearchNode> path = new LinkedList<>();
-                    while (node.parent_node != null){
+                    while (node != null){
                         path.addFirst(node);
                         node = node.parent_node;
                     }
                     return new Solution(startState, solution_node.state, path);
                 }else{
                     ArrayList<Action> children = node.state.listActions();
-                    for (Action child_action: children) {
-                        //todo do I really need to make a new node before I check for duplicates?
-                        SearchNode child_node = new SearchNode(node,child_action);
+                    for (Action action : children) {
+                        SearchNode child_node = new SearchNode(node, action);
+                        //todo add check grandparent here
                         if(!pruneThisNode(child_node)){
                             frontier.insert(child_node);
                         }

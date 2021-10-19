@@ -25,9 +25,6 @@ public class Tile_puzzle_state implements State{
     public ArrayList<Action> listActions() {
         ArrayList<Action> action_list = new ArrayList<>();
 
-        if(!action_list.isEmpty()){
-            return action_list;
-        }
         int zero_index = find_zero();
 
         //if 0 is not on the left
@@ -39,11 +36,11 @@ public class Tile_puzzle_state implements State{
             action_list.add(new Tile_puzzle_action(zero_index, zero_index + 1));
         }
 
-        if(!(zero_index < 4)){
+        if(zero_index > 3){
             action_list.add(new Tile_puzzle_action(zero_index, zero_index - 4));
         }
 
-        if(!(zero_index > 11)){
+        if(zero_index < 12){
             action_list.add(new Tile_puzzle_action(zero_index, zero_index + 4));
         }
         return action_list;
@@ -60,6 +57,7 @@ public class Tile_puzzle_state implements State{
 
 
     @Override
+    //todo this can be faster
     public boolean isGoalState() {
         for (int i = 0; i < 16; i++) {
             if(get_num(i) != i){
@@ -100,7 +98,7 @@ public class Tile_puzzle_state implements State{
     }
 
     @Override
-    public void performAction(Action action) {
+    public void performAction(Action action){
 
         Tile_puzzle_action casted_action = (Tile_puzzle_action) action;
 

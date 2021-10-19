@@ -6,9 +6,9 @@ public class SillyPuzzle implements State {
     private static boolean is_id_search = true;
 
     public static void main(String[] args) {
-        SillyPuzzle startState = new SillyPuzzle(33);
+        SillyPuzzle startState = new SillyPuzzle(52);
         if(!is_id_search) {
-            Search searcher = new DepthLimitedSearch(10);
+            Search searcher = new BreadthFirstSearch();
             Solution solution = searcher.search(startState);
             solution.display_path();  // or whatever means you want to display the solution
         }else{

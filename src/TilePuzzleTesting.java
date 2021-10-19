@@ -9,7 +9,7 @@ import java.util.List;
 public class TilePuzzleTesting {
 
     public static void main(String[] args) {
-        testTiles("src/tile_test.txt", new IterativeDeepeningSearch());
+        testTiles("src/tile_test.txt", new BreadthFirstSearch());
     }
 
     static void testTiles(String filename, Search searcher) {
@@ -20,6 +20,9 @@ public class TilePuzzleTesting {
         for (String inputLine : inputLines) {
             String[] fields = inputLine.split(" ");
             int correctPathLength = Integer.parseInt(fields[0]);
+
+            if(correctPathLength < 5) continue;
+
             String[] startStateArrayStrings = fields[2].split(",");
             int[] startStateArray = new int[16];
             for (int i=0; i<16; i++) {
@@ -31,13 +34,21 @@ public class TilePuzzleTesting {
 
             //State startState = new Tile_puzzle_state(startStateArray);   // use a constructor that expects an array of 16 ints
             State startState = new Tile_puzzle_state(startStateBits);  // use a constructor that expects a single 64-bit long
+//            System.out.println("new test case with length of: " + correctPathLength);
+//            startState.display();
 
             long startTime = System.nanoTime();
             Solution solution = searcher.search(startState);
             long endTime = System.nanoTime();
             double duration = (endTime-startTime) / 1e6;
 
+
+
             if (solution.get_path_length() != correctPathLength) {
+//                System.out.println("Start State:");
+//                startState.display();
+//                solution.display_final_state();
+                solution.display_path();
                 System.out.println("ERROR: wrong path length for " + startState + " should be " + correctPathLength + " but got " + solution.get_path_length());
             }
 

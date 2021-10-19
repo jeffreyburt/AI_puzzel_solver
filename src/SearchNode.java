@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class SearchNode{
+public class SearchNode implements Comparable{
     public SearchNode parent_node;
     public int depth;
     public int cost;
@@ -21,7 +21,7 @@ public class SearchNode{
     public SearchNode(State start_state){
         parent_node = null;
         depth = 0;
-        state = start_state;
+        state = start_state.duplicate();
         cost = 0;
     }
 
