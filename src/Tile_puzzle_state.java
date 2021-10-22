@@ -57,7 +57,7 @@ public class Tile_puzzle_state implements State{
 
 
     @Override
-    //todo this can be faster
+    //todo this can be faster by just comparing to correct long
     public boolean isGoalState() {
         for (int i = 0; i < 16; i++) {
             if(get_num(i) != i){
@@ -118,11 +118,32 @@ public class Tile_puzzle_state implements State{
 
     @Override
     public int heuristic() {
+
+        //standard heuristic calculation
         int total = 0;
         for (int i = 0; i < 16; i++) {
             int num_at_index = get_num(i);
-            total += calc_x_distance(i, num_at_index) + calc_y_distance(i, num_at_index);
+            if(num_at_index != 0) {
+                total += calc_x_distance(i, num_at_index) + calc_y_distance(i, num_at_index);
+            }
         }
+
+//        //upper left calculation
+//        if((find_num(1) /4) != 0){
+//            if(find_num(4) > 3) total += 2;
+//        }
+//
+//        //lower right calculation
+//        if((find_num(15) % 4) != 3){
+//            if(find_num(12) < 12) total += 2;
+//        }
+
+
+
+
+
+
+
         return total;
     }
 
@@ -143,6 +164,13 @@ public class Tile_puzzle_state implements State{
                 depth += 2;
             }
         }
+    }
+
+    private int find_num(int number) throws NoSuchElementException{
+        for (int i = 0; i < 16; i++) {
+            if(get_num(i) == number) return i;
+        }
+        throw new NoSuchElementException();
     }
 
 

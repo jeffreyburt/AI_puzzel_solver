@@ -1,6 +1,6 @@
 public class DepthLimitedSearch extends TreeSearch{
 
-    private int depth;
+    protected int depth;
 
     public DepthLimitedSearch(int depth) {
         super(new FrontierStack());
@@ -8,7 +8,7 @@ public class DepthLimitedSearch extends TreeSearch{
     }
 
     public boolean pruneThisNode(SearchNode node){
-        return super.check_grandparent(node) || (node.depth >= depth);
+        return check_grandparent(node) || (node.depth >= depth);
     }
 
 

@@ -31,7 +31,7 @@ public class SearchNode implements Comparable{
 
     public int compareTo(Object other_node){
         SearchNode other_nodee = (SearchNode) other_node;
-       if(evaluate() < other_nodee.evaluate()){
+       if(evaluate() > other_nodee.evaluate()){
            return 1;
        }else if(evaluate() == other_nodee.evaluate()){
            return 0;
