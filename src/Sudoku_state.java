@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 public class Sudoku_state implements State{
+
+    //todo need efficient way to do this
     @Override
     public ArrayList<Action> listActions() {
         return null;
