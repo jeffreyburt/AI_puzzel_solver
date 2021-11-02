@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-abstract class TreeSearch implements Search {
+abstract class Tree_search implements Search {
 
     private Frontier frontier;
 
-    public TreeSearch(Frontier frontier){
+    public Tree_search(Frontier frontier){
         this.frontier = frontier;
     }
 
@@ -50,8 +50,8 @@ abstract class TreeSearch implements Search {
                     }
                 }
             }
-//            System.out.println("ERROR: NO SOLUTION FOUND");
-//            System.out.println("A STRANGE GAME. THE ONLY WINNING MOVE IS NOT TO PLAY");
+            System.out.println("ERROR: NO SOLUTION FOUND");
+            System.out.println("A STRANGE GAME. THE ONLY WINNING MOVE IS NOT TO PLAY");
             return null;
 
         }catch (OutOfMemoryError error){

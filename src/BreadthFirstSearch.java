@@ -1,4 +1,4 @@
-public class BreadthFirstSearch extends TreeSearch{
+public class BreadthFirstSearch extends Tree_search {
 
 
     public BreadthFirstSearch() {

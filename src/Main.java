@@ -5,7 +5,7 @@ public class Main {
 
         int soution_depth = 6;
 
-        TreeSearch search_algorithm = new DepthLimitedSearch(soution_depth + 1);
+        Tree_search search_algorithm = new DepthLimitedSearch(soution_depth + 1);
 
         Solver solver = new Solver();
         State state = new Tile_puzzle_state(gen_start_state(soution_depth));

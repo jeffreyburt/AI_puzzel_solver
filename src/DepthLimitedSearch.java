@@ -1,4 +1,4 @@
-public class DepthLimitedSearch extends TreeSearch{
+public class DepthLimitedSearch extends Tree_search {
 
     protected int depth;
 

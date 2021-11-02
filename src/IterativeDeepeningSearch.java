@@ -4,7 +4,7 @@ public class IterativeDeepeningSearch implements Search{
         Solver solver = new Solver();
         int i = 1;
         while (true) {
-            TreeSearch search_algorithm = new DepthLimitedSearch(i);
+            Tree_search search_algorithm = new DepthLimitedSearch(i);
             Solution solution = solver.solve(startState, search_algorithm);
             if(solution != null){
                 return solution;
