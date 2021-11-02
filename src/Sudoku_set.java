@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.BitSet;
 
 public class Sudoku_set {
+    //todo URGENT! FIX STORED VS DISPLAYED NUMBER DISCREPANCY
+    //numbers are imputed with values of 1-9 but stored with values of 1-8
 
     private ArrayList<Sudoku_tile> tiles;
     protected BitSet available_nums;
@@ -32,5 +34,19 @@ public class Sudoku_set {
         for (Sudoku_tile tile : tiles) {
             tile.calculate_available_nums();
         }
+    }
+
+    public boolean is_goal(){
+        BitSet numbers = new BitSet(9);
+        numbers.flip(0,8);
+        for (Sudoku_tile tile: tiles) {
+            try {
+                numbers.clear(tile.num);
+            } catch (IndexOutOfBoundsException exception){
+                return false;
+                //todo is this good use of try/catch??
+            }
+        }
+        return numbers.nextSetBit(0) == -1;
     }
 }

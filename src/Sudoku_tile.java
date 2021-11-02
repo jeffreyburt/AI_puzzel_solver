@@ -6,12 +6,16 @@ public class Sudoku_tile {
     public boolean mutable;
     private ArrayList<Sudoku_set> sets;
     public ArrayList<Short> possible_nums;
+    protected int x;
+    protected int y;
 
-    public Sudoku_tile(short num, boolean mutable){
+    public Sudoku_tile(short num, boolean mutable, int x, int y){
         this.num = num;
         this.mutable = mutable;
         sets = new ArrayList<>();
         possible_nums = new ArrayList<>();
+        this.x = x;
+        this.y = y;
     }
 
     public void change_num(short new_num) throws UnsupportedOperationException{
