@@ -128,21 +128,10 @@ public class Tile_puzzle_state implements State{
             }
         }
 
-//        //upper left calculation
-//        if((find_num(1) /4) != 0){
-//            if(find_num(4) > 3) total += 2;
-//        }
-//
-//        //lower right calculation
-//        if((find_num(15) % 4) != 3){
-//            if(find_num(12) < 12) total += 2;
-//        }
-
-
-
-
-
-
+        //upper left calculation of last move rule
+        if((find_num(1) % 4) != 0){
+            if(find_num(4) > 3) total += 2;
+        }
 
         return total;
     }
