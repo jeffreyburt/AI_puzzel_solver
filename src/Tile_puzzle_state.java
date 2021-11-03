@@ -127,17 +127,17 @@ public class Tile_puzzle_state implements State {
 
         //linear conflict rule
         //horizontal loops
-        for (int i = 0; i < 16; i += 4) {
-            System.out.println(i);
-            for (int k = i; k < i + 4; k++) {
-                int working_tile_num = get_num(k);
-                if (tiles_in_same_row(working_tile_num, i)) {
-                    for (int j = k + 1; j < i + 4; j++) {
+        for (int first_index_of_row = 0; first_index_of_row < 16; first_index_of_row += 4) {
+            for (int tile_in_row = first_index_of_row; tile_in_row < first_index_of_row + 4; tile_in_row++) {
+
+                int working_tile_num = get_num(tile_in_row);
+                if (tiles_in_same_row(working_tile_num, first_index_of_row) && working_tile_num != 0) {
+                    for (int j = tile_in_row + 1; j < first_index_of_row + 4; j++) {
+
                         int compare_tile_num = get_num(j);
-                        if(tiles_in_same_row(compare_tile_num, i)){
-                            if(compare_tile_num > working_tile_num){
+                        if(tiles_in_same_row(compare_tile_num, first_index_of_row) && compare_tile_num != 0){
+                            if(compare_tile_num < working_tile_num){
                                 total += 2;
-                                System.out.println("eeeee");
                             }
                         }
                     }
@@ -145,20 +145,24 @@ public class Tile_puzzle_state implements State {
             }
         }
 
-//        //vertical loops
-//        for (int i = 0; i < 4; i ++) {
-//            for (int k = i; k < 16; k += 4) {
-//                int working_tile_num = get_num(k);
-//                if (tiles_in_same_col(working_tile_num, i)) {
-//                    for (int j = k + 4; j < 16; j += 4) {
-//                        int compare_tile_num = get_num(j);
-//                        if(tiles_in_same_col(compare_tile_num, i)){
-//                            if(compare_tile_num > working_tile_num) total += 2;
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        //vertical loops
+        for (int first_index_of_col = 0; first_index_of_col < 4; first_index_of_col ++) {
+            for (int tile_in_col = first_index_of_col; tile_in_col < 16; tile_in_col += 4) {
+
+                int working_tile_num = get_num(tile_in_col);
+                if (tiles_in_same_col(working_tile_num, first_index_of_col) && working_tile_num != 0) {
+                    for (int j = tile_in_col + 4; j < 16; j += 4) {
+
+                        int compare_tile_num = get_num(j);
+                        if(tiles_in_same_col(compare_tile_num, first_index_of_col) && compare_tile_num != 0){
+                            if(compare_tile_num < working_tile_num){
+                                total += 2;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         return total;
     }

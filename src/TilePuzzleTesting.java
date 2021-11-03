@@ -49,7 +49,7 @@ public class TilePuzzleTesting {
                 System.out.println("ERROR: wrong path length for " + startState + " should be " + correctPathLength + " but got " + solution.get_path_length());
                 //solution.display_path();
             }else{
-                System.out.println("SOLVED CORRECTLY in:  " + duration + " ms.");
+                //System.out.println("SOLVED CORRECTLY in:  " + duration + " ms.");
             }
 
                         // Check if your manhattan distance heuristic matches the correct values
