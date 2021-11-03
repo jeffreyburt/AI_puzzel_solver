@@ -1,9 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
-public class Tile_puzzle_state implements State{
+public class Tile_puzzle_state implements State {
 
     /*
     Bitwise state storage conventions:
@@ -13,12 +12,9 @@ public class Tile_puzzle_state implements State{
     public long state;
 
 
-
-    public Tile_puzzle_state(long state){
+    public Tile_puzzle_state(long state) {
         this.state = state;
     }
-
-
 
 
     @Override
@@ -28,19 +24,19 @@ public class Tile_puzzle_state implements State{
         int zero_index = find_zero();
 
         //if 0 is not on the left
-        if(zero_index % 4 != 0){
+        if (zero_index % 4 != 0) {
             action_list.add(new Tile_puzzle_action(zero_index, zero_index - 1));
         }
 
-        if((zero_index + 1) % 4 != 0){
+        if ((zero_index + 1) % 4 != 0) {
             action_list.add(new Tile_puzzle_action(zero_index, zero_index + 1));
         }
 
-        if(zero_index > 3){
+        if (zero_index > 3) {
             action_list.add(new Tile_puzzle_action(zero_index, zero_index - 4));
         }
 
-        if(zero_index < 12){
+        if (zero_index < 12) {
             action_list.add(new Tile_puzzle_action(zero_index, zero_index + 4));
         }
         return action_list;
@@ -48,7 +44,7 @@ public class Tile_puzzle_state implements State{
 
     private int find_zero() throws NoSuchElementException {
         for (int i = 0; i < 16; i++) {
-            if(get_num(i) == 0){
+            if (get_num(i) == 0) {
                 return i;
             }
         }
@@ -59,16 +55,11 @@ public class Tile_puzzle_state implements State{
     @Override
     //todo this can be faster by just comparing to correct long
     public boolean isGoalState() {
-        for (int i = 0; i < 16; i++) {
-            if(get_num(i) != i){
-                return false;
-            }
-        }
-        return true;
+        return state == -81985529216486896L;
     }
 
-    
-    private int get_num(int index_num){
+
+    private int get_num(int index_num) {
         long state_copy = state >> (index_num * 4);
         return (int) (state_copy & 15);
     }
@@ -76,12 +67,12 @@ public class Tile_puzzle_state implements State{
 
     @Override
     public void display() {
-        int print_array[][] = new int[4][4];
+        int[][] print_array = new int[4][4];
         int array_index = 0;
-        for (int i = 0; i <4; i++) {
+        for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 print_array[i][j] = get_num(array_index);
-                array_index ++;
+                array_index++;
             }
 
         }
@@ -98,7 +89,7 @@ public class Tile_puzzle_state implements State{
     }
 
     @Override
-    public void performAction(Action action){
+    public void performAction(Action action) {
 
         Tile_puzzle_action casted_action = (Tile_puzzle_action) action;
 
@@ -123,65 +114,110 @@ public class Tile_puzzle_state implements State{
         int total = 0;
         for (int i = 0; i < 16; i++) {
             int num_at_index = get_num(i);
-            if(num_at_index != 0) {
+            if (num_at_index != 0) {
                 total += calc_x_distance(i, num_at_index) + calc_y_distance(i, num_at_index);
             }
         }
 
         //upper left calculation of last move rule
-        if((find_num(1) % 4) != 0){
-            if(find_num(4) > 3) total += 2;
+        //commented out to avoid overlap with linear conflict
+//        if ((find_num(1) % 4) != 0) {
+//            if (find_num(4) > 3) total += 2;
+//        }
+
+        //linear conflict rule
+        //horizontal loops
+        for (int i = 0; i < 16; i += 4) {
+            System.out.println(i);
+            for (int k = i; k < i + 4; k++) {
+                int working_tile_num = get_num(k);
+                if (tiles_in_same_row(working_tile_num, i)) {
+                    for (int j = k + 1; j < i + 4; j++) {
+                        int compare_tile_num = get_num(j);
+                        if(tiles_in_same_row(compare_tile_num, i)){
+                            if(compare_tile_num > working_tile_num){
+                                total += 2;
+                                System.out.println("eeeee");
+                            }
+                        }
+                    }
+                }
+            }
         }
+
+//        //vertical loops
+//        for (int i = 0; i < 4; i ++) {
+//            for (int k = i; k < 16; k += 4) {
+//                int working_tile_num = get_num(k);
+//                if (tiles_in_same_col(working_tile_num, i)) {
+//                    for (int j = k + 4; j < 16; j += 4) {
+//                        int compare_tile_num = get_num(j);
+//                        if(tiles_in_same_col(compare_tile_num, i)){
+//                            if(compare_tile_num > working_tile_num) total += 2;
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
         return total;
     }
+
+    private boolean tiles_in_same_row(int index1, int index2){
+        return index1 / 4 == index2 / 4;
+    }
+
+    private boolean tiles_in_same_col(int index1, int index2){
+        return index1 % 4 == index2 % 4;
+    }
+
 
     @Override
     public void gen_state(int depth) {
         long grandparent_state;
         long prev_state = 0;
         for (int i = 0; i < depth; i++) {
-            
+
             grandparent_state = prev_state;
             prev_state = state;
 
             ArrayList<Action> action_list = listActions();
             int random_index = (int) (Math.random() * action_list.size());
             performAction(action_list.get(random_index));
-            if(state == grandparent_state){
+            if (state == grandparent_state) {
                 //System.out.println("repeat");
                 depth += 2;
             }
         }
     }
 
-    private int find_num(int number) throws NoSuchElementException{
+    private int find_num(int number) throws NoSuchElementException {
         for (int i = 0; i < 16; i++) {
-            if(get_num(i) == number) return i;
+            if (get_num(i) == number) return i;
         }
         throw new NoSuchElementException();
     }
 
 
-    private int calc_y_distance(int index_1, int index_2){
-        return Math.abs((index_1/4)-(index_2/4));
+    private int calc_y_distance(int index_1, int index_2) {
+        return Math.abs((index_1 / 4) - (index_2 / 4));
     }
 
-    private int calc_x_distance(int index_1, int index_2){
-        return Math.abs((index_1 % 4)-(index_2 % 4));
+    private int calc_x_distance(int index_1, int index_2) {
+        return Math.abs((index_1 % 4) - (index_2 % 4));
     }
 
 
     //todo change this to private when testing is done
-    private long clear_bits(long input, int index_num){
-        return (~ ( ((long) 15) << (4 * index_num))) & input;
+    private long clear_bits(long input, int index_num) {
+        return (~(((long) 15) << (4 * index_num))) & input;
     }
 
-    private long set_cleared_bits(long input, int index_num, int number_to_set){
-        return (input | (( (long) number_to_set) << (4 * index_num)));
+    private long set_cleared_bits(long input, int index_num, int number_to_set) {
+        return (input | (((long) number_to_set) << (4 * index_num)));
     }
 
-    public void change_bit(int index_num, int num_to_set){
+    public void change_bit(int index_num, int num_to_set) {
         state = clear_bits(state, index_num);
         state = set_cleared_bits(state, index_num, num_to_set);
     }
