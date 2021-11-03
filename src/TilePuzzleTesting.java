@@ -1,9 +1,7 @@
 import java.io.IOException;
-import java.io.PrintStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TilePuzzleTesting {
@@ -23,7 +21,7 @@ public class TilePuzzleTesting {
 
             String[] startStateArrayStrings = fields[2].split(",");
             int[] startStateArray = new int[16];
-            for (int i=0; i<16; i++) {
+            for (int i = 0; i < 16; i++) {
                 startStateArray[i] = Integer.parseInt(startStateArrayStrings[i]);
             }
             long startStateBits = Long.parseUnsignedLong(fields[3].replaceFirst("0x", ""), 16);
@@ -38,8 +36,7 @@ public class TilePuzzleTesting {
             long startTime = System.nanoTime();
             Solution solution = searcher.search(startState);
             long endTime = System.nanoTime();
-            double duration = (endTime-startTime) / 1e6;
-
+            double duration = (endTime - startTime) / 1e6;
 
 
             if (solution.get_path_length() != correctPathLength) {
@@ -48,19 +45,19 @@ public class TilePuzzleTesting {
 //                solution.display_final_state();
                 System.out.println("ERROR: wrong path length for " + startState + " should be " + correctPathLength + " but got " + solution.get_path_length());
                 //solution.display_path();
-            }else{
+            } else {
                 //System.out.println("SOLVED CORRECTLY in:  " + duration + " ms.");
             }
 
-                        // Check if your manhattan distance heuristic matches the correct values
+            // Check if your manhattan distance heuristic matches the correct values
 //                        if (startState.heuristic() != correctManhattanDistanceHeuristic) {
 //                            System.out.println("ERROR: wrong heuristic for " + startState + " should be " + correctManhattanDistanceHeuristic + " but got " + startState.heuristic());
 //                        }
 
             //            // Check that your custom heuristic is never pessimistic
-                        if (startState.heuristic() > solution.get_path_length()) {
-                            System.out.println("ERROR: pessimistic heuristic for " + startState + " heuristic " + startState.heuristic() + " should be less than " + solution.get_path_length());
-                        }
+            if (startState.heuristic() > solution.get_path_length()) {
+                System.out.println("ERROR: pessimistic heuristic for " + startState + " heuristic " + startState.heuristic() + " should be less than " + solution.get_path_length());
+            }
 
             if (previousPathLength != -1 && previousPathLength != correctPathLength) {
                 displayAverageTime(searcher, previousPathLength, totalTime, numTests);

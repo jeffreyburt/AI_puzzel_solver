@@ -1,8 +1,8 @@
 import java.util.PriorityQueue;
 
-public class FrontierPriorityQueue implements Frontier{
+public class FrontierPriorityQueue implements Frontier {
 
-    private PriorityQueue<SearchNode> priorityQueue = new PriorityQueue<>();
+    private final PriorityQueue<SearchNode> priorityQueue = new PriorityQueue<>();
 
     @Override
     public void clear() {

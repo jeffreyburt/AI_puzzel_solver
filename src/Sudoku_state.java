@@ -52,7 +52,6 @@ public class Sudoku_state implements State {
     }
 
 
-    //todo need efficient way to do this
     //this will probably contain some unnecessary iterating in order to allow it to work with the sorting code
     @Override
     public ArrayList<Action> listActions() {
@@ -71,7 +70,7 @@ public class Sudoku_state implements State {
     public boolean isGoalState() {
         for (Sudoku_set set :
                 sets) {
-            if(!set.is_goal()) return false;
+            if (!set.is_goal()) return false;
         }
         return true;
     }

@@ -53,7 +53,6 @@ public class Tile_puzzle_state implements State {
 
 
     @Override
-    //todo this can be faster by just comparing to correct long
     public boolean isGoalState() {
         return state == -81985529216486896L;
     }
@@ -135,8 +134,8 @@ public class Tile_puzzle_state implements State {
                     for (int j = tile_in_row + 1; j < first_index_of_row + 4; j++) {
 
                         int compare_tile_num = get_num(j);
-                        if(tiles_in_same_row(compare_tile_num, first_index_of_row) && compare_tile_num != 0){
-                            if(compare_tile_num < working_tile_num){
+                        if (tiles_in_same_row(compare_tile_num, first_index_of_row) && compare_tile_num != 0) {
+                            if (compare_tile_num < working_tile_num) {
                                 total += 2;
                             }
                         }
@@ -146,7 +145,7 @@ public class Tile_puzzle_state implements State {
         }
 
         //vertical loops
-        for (int first_index_of_col = 0; first_index_of_col < 4; first_index_of_col ++) {
+        for (int first_index_of_col = 0; first_index_of_col < 4; first_index_of_col++) {
             for (int tile_in_col = first_index_of_col; tile_in_col < 16; tile_in_col += 4) {
 
                 int working_tile_num = get_num(tile_in_col);
@@ -154,8 +153,8 @@ public class Tile_puzzle_state implements State {
                     for (int j = tile_in_col + 4; j < 16; j += 4) {
 
                         int compare_tile_num = get_num(j);
-                        if(tiles_in_same_col(compare_tile_num, first_index_of_col) && compare_tile_num != 0){
-                            if(compare_tile_num < working_tile_num){
+                        if (tiles_in_same_col(compare_tile_num, first_index_of_col) && compare_tile_num != 0) {
+                            if (compare_tile_num < working_tile_num) {
                                 total += 2;
                             }
                         }
@@ -167,11 +166,11 @@ public class Tile_puzzle_state implements State {
         return total;
     }
 
-    private boolean tiles_in_same_row(int index1, int index2){
+    private boolean tiles_in_same_row(int index1, int index2) {
         return index1 / 4 == index2 / 4;
     }
 
-    private boolean tiles_in_same_col(int index1, int index2){
+    private boolean tiles_in_same_col(int index1, int index2) {
         return index1 % 4 == index2 % 4;
     }
 
@@ -212,7 +211,6 @@ public class Tile_puzzle_state implements State {
     }
 
 
-    //todo change this to private when testing is done
     private long clear_bits(long input, int index_num) {
         return (~(((long) 15) << (4 * index_num))) & input;
     }

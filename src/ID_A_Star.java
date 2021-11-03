@@ -1,4 +1,4 @@
-public class ID_A_Star implements Search{
+public class ID_A_Star implements Search {
 
     @Override
     public Solution search(State startState) {
@@ -8,7 +8,7 @@ public class ID_A_Star implements Search{
         while (true) {
             search_algorithm.setDepth(i);
             Solution solution = solver.solve(startState, search_algorithm);
-            if(solution != null){
+            if (solution != null) {
                 return solution;
             }
             i = search_algorithm.min_depth_above_threshold;

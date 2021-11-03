@@ -5,27 +5,27 @@ public class Sudoku_set {
     //todo URGENT! FIX STORED VS DISPLAYED NUMBER DISCREPANCY
     //numbers are imputed with values of 1-9 but stored with values of 1-8
 
-    private ArrayList<Sudoku_tile> tiles;
+    private final ArrayList<Sudoku_tile> tiles;
     protected BitSet available_nums;
 
-    public Sudoku_set(){
+    public Sudoku_set() {
         tiles = new ArrayList<>();
         available_nums = new BitSet(9);
-        available_nums.flip(0,8);
+        available_nums.flip(0, 8);
     }
 
-    public void add_tile(Sudoku_tile tile){
+    public void add_tile(Sudoku_tile tile) {
         tiles.add(tile);
-        if(is_num_valid(tile.num)) available_nums.set(tile.num);
+        if (is_num_valid(tile.num)) available_nums.set(tile.num);
     }
 
-    public void change_num(short removed_num, short new_num){
-        if(is_num_valid(removed_num)) available_nums.flip(removed_num);
+    public void change_num(short removed_num, short new_num) {
+        if (is_num_valid(removed_num)) available_nums.flip(removed_num);
         available_nums.flip(new_num);
     }
 
     //checks whether a number should be added to the set
-    private boolean is_num_valid(short num){
+    private boolean is_num_valid(short num) {
         return (num >= 0);
     }
 
@@ -36,13 +36,13 @@ public class Sudoku_set {
         }
     }
 
-    public boolean is_goal(){
+    public boolean is_goal() {
         BitSet numbers = new BitSet(9);
-        numbers.flip(0,8);
-        for (Sudoku_tile tile: tiles) {
+        numbers.flip(0, 8);
+        for (Sudoku_tile tile : tiles) {
             try {
                 numbers.clear(tile.num);
-            } catch (IndexOutOfBoundsException exception){
+            } catch (IndexOutOfBoundsException exception) {
                 return false;
                 //todo is this good use of try/catch??
             }

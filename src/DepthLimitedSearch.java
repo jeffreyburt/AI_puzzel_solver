@@ -7,7 +7,7 @@ public class DepthLimitedSearch extends Tree_search {
         this.depth = depth;
     }
 
-    public boolean pruneThisNode(SearchNode node){
+    public boolean pruneThisNode(SearchNode node) {
         return check_grandparent(node) || (node.depth >= depth);
     }
 

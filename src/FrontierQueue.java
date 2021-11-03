@@ -3,7 +3,7 @@ import java.util.LinkedList;
 public class FrontierQueue implements Frontier {
 
 
-    private LinkedList<SearchNode> frontier_queue = new LinkedList<>();
+    private final LinkedList<SearchNode> frontier_queue = new LinkedList<>();
 
     @Override
     public void clear() {

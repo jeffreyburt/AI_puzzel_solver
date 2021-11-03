@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class SearchNode implements Comparable{
+public class SearchNode implements Comparable {
     public SearchNode parent_node;
     public int depth;
     public int cost;
@@ -8,7 +8,7 @@ public class SearchNode implements Comparable{
     public State state;
     public ArrayList<SearchNode> children;
 
-    public SearchNode(SearchNode parent_node, Action action){
+    public SearchNode(SearchNode parent_node, Action action) {
         this.parent_node = parent_node;
         depth = parent_node.depth + 1;
         cost = parent_node.cost + action.getCost();
@@ -18,25 +18,25 @@ public class SearchNode implements Comparable{
         this.action = action;
     }
 
-    public SearchNode(State start_state){
+    public SearchNode(State start_state) {
         parent_node = null;
         depth = 0;
         state = start_state.duplicate();
         cost = 0;
     }
 
-    public int evaluate(){
+    public int evaluate() {
         return state.heuristic() + cost;
     }
 
-    public int compareTo(Object other_node){
+    public int compareTo(Object other_node) {
         SearchNode other_nodee = (SearchNode) other_node;
-       if(evaluate() > other_nodee.evaluate()){
-           return 1;
-       }else if(evaluate() == other_nodee.evaluate()){
-           return 0;
-       }
-       return -1;
+        if (evaluate() > other_nodee.evaluate()) {
+            return 1;
+        } else if (evaluate() == other_nodee.evaluate()) {
+            return 0;
+        }
+        return -1;
     }
 
 }

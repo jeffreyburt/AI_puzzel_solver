@@ -1,7 +1,7 @@
 public class Main {
 
 
-    public static void main(String args[]){
+    public static void main(String[] args) {
 
         int soution_depth = 6;
 
@@ -9,15 +9,15 @@ public class Main {
 
         Solver solver = new Solver();
         State state = new Tile_puzzle_state(gen_start_state(soution_depth));
-        Solution solution = solver.solve(state,search_algorithm);
+        Solution solution = solver.solve(state, search_algorithm);
         //solution.display_final_state();
         solution.display_path();
     }
 
-    private static long gen_start_state(int depth){
+    private static long gen_start_state(int depth) {
         Tile_puzzle_state base_state = new Tile_puzzle_state(0);
         for (int i = 0; i < 16; i++) {
-            base_state.change_bit(i,i);
+            base_state.change_bit(i, i);
         }
         base_state.gen_state(depth);
         base_state.display();

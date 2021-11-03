@@ -43,7 +43,6 @@ abstract class Tree_search implements Search {
                     ArrayList<Action> children = node.state.listActions();
                     for (Action action : children) {
                         SearchNode child_node = new SearchNode(node, action);
-                        //todo add check grandparent here
                         if (!check_grandparent(child_node) && !pruneThisNode(child_node)) {
                             frontier.insert(child_node);
                         }

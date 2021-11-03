@@ -2,7 +2,7 @@ import java.util.Stack;
 
 public class FrontierStack implements Frontier {
 
-    private Stack<SearchNode> frontier_stack = new Stack<>();
+    private final Stack<SearchNode> frontier_stack = new Stack<>();
 
 
     @Override
