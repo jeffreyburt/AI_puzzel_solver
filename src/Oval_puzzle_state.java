@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Oval_puzzle_state implements State {
 
@@ -50,10 +51,12 @@ public class Oval_puzzle_state implements State {
 
     @Override
     public void performAction(Action action) {
-
+        int first_index = ((Oval_puzzle_action) action).swap_index;
+        Collections.swap(state, first_index, get_corrected_index(first_index + 3));
+        Collections.swap(state, get_corrected_index(first_index + 1), get_corrected_index(first_index + 2));
     }
 
-
+    private int get_corrected_index(int index){ return index % 20;}
 
     @Override
     public int heuristic() {
@@ -62,6 +65,20 @@ public class Oval_puzzle_state implements State {
 
     @Override
     public void gen_state(int depth) {
+        ArrayList<Short> grandparent_state;
+        ArrayList<Short> prev_state = state;
+        for (int i = 0; i < depth; i++) {
+            grandparent_state = prev_state;
+            prev_state = state;
 
+            ArrayList<Action> action_list = listActions();
+            int random_index = (int) (Math.random() * action_list.size());
+            performAction(action_list.get(random_index));
+            if (state == grandparent_state) {
+                //System.out.println("repeat");
+                depth += 2;
+            }
+            display();
+        }
     }
 }
