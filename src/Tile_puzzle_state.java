@@ -126,6 +126,7 @@ public class Tile_puzzle_state implements State {
 
         //linear conflict rule
         //horizontal loops
+        //todo this code probably has a bug in it
         for (int first_index_of_row = 0; first_index_of_row < 16; first_index_of_row += 4) {
             for (int tile_in_row = first_index_of_row; tile_in_row < first_index_of_row + 4; tile_in_row++) {
 
@@ -166,6 +167,7 @@ public class Tile_puzzle_state implements State {
         return total;
     }
 
+    //
     private boolean tiles_in_same_row(int index1, int index2) {
         return index1 / 4 == index2 / 4;
     }

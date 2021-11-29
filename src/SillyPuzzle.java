@@ -7,7 +7,7 @@ public class SillyPuzzle implements State {
     public static void main(String[] args) {
         SillyPuzzle startState = new SillyPuzzle(52);
         if (!is_id_search) {
-            Search searcher = new BreadthFirstSearch();
+            Search searcher = new IterativeDeepeningSearch();
             Solution solution = searcher.search(startState);
             solution.display_path();  // or whatever means you want to display the solution
         } else {

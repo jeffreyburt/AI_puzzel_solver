@@ -7,7 +7,7 @@ public class Oval_puzzle_state implements State {
     public ArrayList<Action> actions;
 
     public Oval_puzzle_state(ArrayList<Short> state, ArrayList<Action> actions){
-        this.state = state;
+        this.state = new ArrayList<>(state);
         this.actions = actions;
     }
 
@@ -66,19 +66,21 @@ public class Oval_puzzle_state implements State {
     @Override
     public void gen_state(int depth) {
         ArrayList<Short> grandparent_state;
-        ArrayList<Short> prev_state = state;
+        ArrayList<Short> prev_state = null;
+
+
         for (int i = 0; i < depth; i++) {
             grandparent_state = prev_state;
-            prev_state = state;
+            prev_state = new ArrayList<>(state);
 
             ArrayList<Action> action_list = listActions();
             int random_index = (int) (Math.random() * action_list.size());
             performAction(action_list.get(random_index));
-            if (state == grandparent_state) {
-                //System.out.println("repeat");
+            if (state.equals(grandparent_state)) {
+                //System.out.println("repeat " + i);
                 depth += 2;
             }
-            display();
         }
     }
+
 }

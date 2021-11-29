@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.BitSet;
 
 public class Sudoku_set {
-    //todo URGENT! FIX STORED VS DISPLAYED NUMBER DISCREPANCY
-    //numbers are imputed with values of 1-9 but stored with values of 1-8
 
     private final ArrayList<Sudoku_tile> tiles;
     protected BitSet available_nums;
