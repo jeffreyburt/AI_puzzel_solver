@@ -5,12 +5,12 @@ public class Oval_puzzle_testing {
 
     public static void main(String[] args) {
 
-        int solution_depth = 8;
+        int solution_depth = 10;
 
         Solver solver = new Solver();
-        //int array[] = new int[]{1,4,17,18,6,13,20,10,11,12,16,8,7,5,9,14,3,19,15,2};
-        //State state = new Oval_puzzle_state(array);
-        State state = new Oval_puzzle_state();
+        int array[] = new int[]{1,4,17,18,6,13,20,10,11,12,16,8,7,5,9,14,3,19,15,2};
+        State state = new Oval_puzzle_state(array);
+        //State state = new Oval_puzzle_state();
         state.gen_state(solution_depth);
         System.out.println("Started testing");
         Solution solution = solver.solve(state, new ID_A_Star());
